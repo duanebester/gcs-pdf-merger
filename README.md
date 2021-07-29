@@ -11,17 +11,10 @@ const { Storage } = require("@google-cloud/storage");
 const { merge } = require("gcs-pdf-merger");
 
 const storage = new Storage();
-const bucket = storage.bucket('bucket-name');
+const bucket = storage.bucket("bucket-name");
 
 (async () => {
-    bucket,
-    [
-      "A.pdf",
-      "B.pdf",
-      "C.pdf",
-    ],
-    "merged.pdf"
-  );
+  merge(bucket, ["A.pdf", "B.pdf", "C.pdf"], "ABC.pdf");
 })().catch((err) => {
   console.error(err);
 });

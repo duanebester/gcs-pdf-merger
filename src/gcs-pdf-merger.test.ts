@@ -79,6 +79,16 @@ describe("GCS PDF Merger", () => {
       expect(resp[0]).to.equal("A.pdf");
     });
 
+    it("should be able to handle order", async () => {
+      const resp = await testables.getMatchingFiles(
+        ["B.pdf", "A.pdf"],
+        "test.pdf",
+        bucketStub
+      );
+      expect(resp[0]).to.equal("B.pdf");
+      expect(resp[1]).to.equal("A.pdf");
+    });
+
     it("should be able to handle 1 non-matching file", async () => {
       const resp = await testables.getMatchingFiles(
         ["X.pdf"],

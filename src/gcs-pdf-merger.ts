@@ -29,9 +29,9 @@ async function downloadFilesFromBucket(fileNames: string[], bucket: any) {
 async function mergeFiles(fileNames: string[], outputFileName: string) {
   try {
     const merger = new PDFMerger();
-    fileNames.forEach((fileName) =>
-      merger.add(path.join(TEMP_PDF_DIR, fileName))
-    );
+    for (let i = 0; i < fileNames.length; i++) {
+      merger.add(path.join(TEMP_PDF_DIR, fileNames[i]));
+    }
     await merger.save(path.join(TEMP_PDF_DIR, outputFileName));
   } catch (err) {
     throw err;
@@ -45,8 +45,8 @@ async function getMatchingFiles(
 ): Promise<string[]> {
   const [files] = await bucket.getFiles();
   const existingNames: string[] = files.map((file) => file.name);
-  const matchingNames: string[] = existingNames.filter((name) =>
-    fileNames.find((n) => n === name)
+  const matchingNames: string[] = fileNames.filter((name) =>
+    existingNames.find((n) => n === name)
   );
   if (matchingNames.find((x) => x === outputFile)) {
     throw new Error(`Cannot have duplicate files: ${outputFile}`);

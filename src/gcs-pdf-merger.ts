@@ -23,7 +23,6 @@ async function downloadFilesFromBucket(fileNames: string[], bucket: any) {
       })
     );
   } catch (err) {
-    // console.error(err);
     throw err;
   }
 }
@@ -36,7 +35,6 @@ async function mergeFiles(fileNames: string[], outputFileName: string) {
     );
     await merger.save(path.join(TEMP_PDF_DIR, outputFileName));
   } catch (err) {
-    // console.error(err);
     throw err;
   }
 }
@@ -63,7 +61,6 @@ async function uploadMerged(fileName: string, bucket: any) {
       destination: fileName,
     });
   } catch (err) {
-    // console.error(err);
     throw err;
   }
 }
@@ -77,18 +74,11 @@ export async function merge(
   const bucket = storage.bucket(bucketName);
   try {
     const fileNames = await getMatchingFiles(pdfs, outputPdf, bucket);
-    // console.log(`Matching files from bucket: ${fileNames}`);
-    // console.log(`Downloading files from bucket ${bucketName}...`);
     await downloadFilesFromBucket(fileNames, bucket);
-    // console.log(`Merging files to ${outputPdf}...`);
     await mergeFiles(fileNames, outputPdf);
-    // console.log(`Merged files to ${outputPdf}!`);
     await uploadMerged(outputPdf, bucket);
-    // console.log("Cleaning up temp directory...");
     await fs.emptyDir(TEMP_PDF_DIR);
-    // console.log("Finished Merge");
   } catch (err) {
-    // console.error(err);
     throw err;
   }
 }

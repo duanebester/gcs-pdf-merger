@@ -26,3 +26,8 @@ const bucket = storage.bucket('bucket-name');
   console.error(err);
 });
 ```
+
+Creates the temp pdf directory at `/tmp/gcs-pdfs` but this can be overidden with:
+```.env
+TEMP_PDF_DIR=/some/path/here
+```

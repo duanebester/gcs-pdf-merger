@@ -1,0 +1,29 @@
+{
+  "name": "gcs-pdf-merger",
+  "version": "0.0.6",
+  "description": "Merge your PDFs in the Cloud!",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "duanebester",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/storage": "^5.11.0",
+    "fs-extra": "^10.0.0",
+    "pdf-merger-js": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.4.6",
+    "chai": "^4.3.4",
+    "mocha": "^9.0.3",
+    "typescript": "^4.3.5"
+  }
+}

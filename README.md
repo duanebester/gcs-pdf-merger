@@ -1,6 +1,6 @@
 # Google Storage PDF Merger
 
-Want a small library to easily merge PDFs within a Google Storage Bucket?
+Want a small node.js library to easily merge PDFs within a Google Storage Bucket?
 
 > Requires Node 8+
 
@@ -14,7 +14,7 @@ const storage = new Storage();
 const bucket = storage.bucket("bucket-name");
 
 (async () => {
-  merge(bucket, ["A.pdf", "B.pdf", "C.pdf"], "ABC.pdf");
+  await merge(bucket, ["A.pdf", "B.pdf", "C.pdf"], "ABC.pdf");
 })().catch((err) => {
   console.error(err);
 });

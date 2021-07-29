@@ -1,7 +1,6 @@
-const fs = require("fs-extra");
-const path = require("path");
-const PDFMerger = require("pdf-merger-js");
-const { Storage } = require("@google-cloud/storage");
+import fse from "fs-extra";
+import path from "path";
+import PDFMerger from "pdf-merger-js";
 
 const TEMP_PDF_DIR: string = process.env.TEMP_PDF_DIR || "/tmp/gcs-pdfs";
 
@@ -12,7 +11,7 @@ async function downloadFilesFromBucket(fileNames: string[], bucket: any) {
      * If the directory does not exist, it is created.
      * The directory itself is not deleted.
      */
-    await fs.emptyDir(TEMP_PDF_DIR);
+    await fse.emptyDir(TEMP_PDF_DIR);
 
     // Download all the files...
     await Promise.all(
@@ -65,19 +64,20 @@ async function uploadMerged(fileName: string, bucket: any) {
   }
 }
 
-export async function merge(
-  bucketName: string,
-  pdfs: string[],
-  outputPdf: string
-) {
-  const storage = new Storage();
-  const bucket = storage.bucket(bucketName);
+export const testables = {
+  getMatchingFiles,
+  downloadFilesFromBucket,
+  uploadMerged,
+  mergeFiles,
+};
+
+export async function merge(bucket: any, pdfs: string[], outputPdf: string) {
   try {
     const fileNames = await getMatchingFiles(pdfs, outputPdf, bucket);
     await downloadFilesFromBucket(fileNames, bucket);
     await mergeFiles(fileNames, outputPdf);
     await uploadMerged(outputPdf, bucket);
-    await fs.emptyDir(TEMP_PDF_DIR);
+    await fse.emptyDir(TEMP_PDF_DIR);
   } catch (err) {
     throw err;
   }

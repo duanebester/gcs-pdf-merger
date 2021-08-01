@@ -34,6 +34,26 @@ describe("GCS PDF Merger", () => {
     });
   });
 
+  describe("verifyInputs", () => {
+    it("should be able to verify inputs", async () => {
+      expect(async () => {
+        await testables.verifyInputs(["A.pdf", "B.pdf"], "test.pdf");
+      }).to.not.throw;
+    });
+
+    it("should throw on bad filenames", async () => {
+      expect(async () => {
+        await testables.verifyInputs(["A.pdf", "B.go"], "test.pdf");
+      }).to.throw;
+    });
+
+    it("should throw on bad output filename", async () => {
+      expect(async () => {
+        await testables.verifyInputs(["A.pdf", "B.pdf"], "test.txt");
+      }).to.throw;
+    });
+  });
+
   describe("downloadFilesFromBucket", () => {
     it("should be able to downloadFilesFromBucket", async () => {
       expect(async () => {

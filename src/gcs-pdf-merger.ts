@@ -64,15 +64,34 @@ async function uploadMerged(fileName: string, bucket: any) {
   }
 }
 
+function verifyInputs(pdfs: string[], outputPdf: string) {
+  if(outputPdf.indexOf('.pdf') === -1) {
+    throw new Error("Output file must be a PDF")
+  }
+  for(let i = 0; i < pdfs.length; i++) {
+    if(pdfs[i].indexOf('.pdf') === -1) {
+      throw new Error("Can only merge PDF files")
+    }
+  }
+}
+
 export const testables = {
   getMatchingFiles,
   downloadFilesFromBucket,
   uploadMerged,
   mergeFiles,
+  verifyInputs
 };
 
+/**
+ * The merge function that combines PDF files within a Google Storage Bucket.
+ * @param bucket The Google Storage Bucket instance. 
+ * @param pdfs An array of PDF filenames; fileOne.pdf, fileTwo.pdf
+ * @param outputPdf The output file name for the merged PDFs.
+ */
 export async function merge(bucket: any, pdfs: string[], outputPdf: string) {
   try {
+    verifyInputs(pdfs, outputPdf);
     const fileNames = await getMatchingFiles(pdfs, outputPdf, bucket);
     await downloadFilesFromBucket(fileNames, bucket);
     await mergeFiles(fileNames, outputPdf);

@@ -1,6 +1,6 @@
 {
   "name": "gcs-pdf-merger",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Merge your PDFs in the Cloud!",
   "keywords": [
     "Google Cloud Storage",
@@ -19,6 +19,7 @@
     "/dist"
   ],
   "scripts": {
+    "build": "tsc -p .",
     "test": "mocha --require ts-node/register 'src/**/*.test.ts'",
     "test:cov": "nyc mocha --require source-map-support/register --require ts-node/register 'src/**/*.test.ts'"
   },

@@ -6,6 +6,8 @@ Want a small node.js library to easily merge PDFs within a Google Storage Bucket
 
 [![NPM](https://nodei.co/npm/gcs-pdf-merger.png)](https://nodei.co/npm/gcs-pdf-merger/)
 
+[![Node.js CI](https://github.com/duanebester/gcs-pdf-merger/actions/workflows/node.js.yml/badge.svg)](https://github.com/duanebester/gcs-pdf-merger/actions/workflows/node.js.yml)
+
 ```js
 const { Storage } = require("@google-cloud/storage");
 const { merge } = require("gcs-pdf-merger");
